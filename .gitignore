@@ -1,0 +1,31 @@
+# macOS & OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python / Node caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+
+# Environment & secrets
+.env
+.env.*
+
+# Intermediate build cache & raw markdown sheets (already compiled into data/questions_data.js)
+data/problems_meta.json
+apna-college-sheet.md
+love-babbar-sheet.md
+striver-a2z-sheet.md
+medium.md
+hard.md
+final revison.md

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#09090b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="DSA C++" />
+  <title>DSA C++ — Placement Revision Workspace</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=9" />
+</head>
+<body>
+  <div id="app" class="workspace-shell">
+    <!-- ==================== LEFT SIDEBAR (DESKTOP WORKSPACE) ==================== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <button class="brand" id="brandBtn" type="button" title="Reset all filters">
+          <span class="brand-mark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </span>
+          <span class="brand-name">DSA<span class="brand-tag">C++17</span></span>
+        </button>
+        <span class="total-solved-pill" id="sidebarSolvedBadge">1136 Qs</span>
+      </div>
+
+      <!-- Primary Mode Navigation -->
+      <div class="sidebar-nav" id="sidebarNav">
+        <button class="snav-btn active" data-view="reels" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+          </svg>
+          <span>Focus Deck</span>
+          <kbd class="snav-kbd">1</kbd>
+        </button>
+        <button class="snav-btn" data-view="explorer" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          <span>Sheet Explorer</span>
+          <kbd class="snav-kbd">2</kbd>
+        </button>
+        <button class="snav-btn" data-view="patterns" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          <span>STL Blueprints</span>
+          <kbd class="snav-kbd">3</kbd>
+        </button>
+        <button class="snav-btn" data-view="stats" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>Companies &amp; Sync</span>
+          <kbd class="snav-kbd">4</kbd>
+        </button>
+      </div>
+
+      <!-- Quick Status Filter (All / Revisit / Done / Star) -->
+      <div class="sb-status-bar" id="sidebarStatusFilter">
+        <button class="sb-stat-pill active" data-sfilter="all" type="button">All</button>
+        <button class="sb-stat-pill pill-revisit" data-sfilter="revisit" type="button">Revisit <span id="sbCntRevisit">0</span></button>
+        <button class="sb-stat-pill pill-done" data-sfilter="done" type="button">Done <span id="sbCntDone">0</span></button>
+        <button class="sb-stat-pill pill-star" data-sfilter="starred" type="button">Star <span id="sbCntStar">0</span></button>
+      </div>
+
+      <div class="sidebar-scroll">
+        <!-- Sheets List -->
+        <div class="sb-section">
+          <div class="sb-sec-title">Sheets</div>
+          <div class="sb-list" id="sidebarSheetList"></div>
+        </div>
+
+        <!-- Topics List for Active Sheet -->
+        <div class="sb-section">
+          <div class="sb-sec-title" id="sidebarTopicHeader">Topics</div>
+          <div class="sb-list" id="sidebarTopicList"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== MAIN WORKSPACE AREA ==================== -->
+    <div class="workspace-main">
+      <!-- SINGLE 1-LINE HEADER BAR -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="breadcrumb" id="desktopBreadcrumb">
+            <span class="bc-sheet" id="bcSheet">3+ Sheets</span>
+            <span class="bc-sep">/</span>
+            <span class="bc-topic" id="bcTopic">All Topics</span>
+          </div>
+
+          <div class="mobile-selectors">
+            <div class="select-wrap">
+              <select id="sheetSelect" class="compact-select" aria-label="Select Sheet"></select>
+            </div>
+            <div class="select-wrap">
+              <select id="topicSelect" class="compact-select" aria-label="Select Topic"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="deck-counter" id="deckCounter">1/95</span>
+
+          <div class="select-wrap mini-select-wrap">
+            <select id="statusSelect" class="mini-select" aria-label="Filter by Revisit, Done, or Star" title="Filter by Revisit, Done, or Star">
+              <option value="all">Filter</option>
+              <option value="revisit">Revisit</option>
+              <option value="done">Done</option>
+              <option value="starred">Star</option>
+              <option value="unseen">Todo</option>
+            </select>
+          </div>
+
+          <div class="select-wrap mini-select-wrap">
+            <select id="diffSelect" class="mini-select" aria-label="Difficulty">
+              <option value="all">Diff</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Med</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+
+          <button class="icon-btn" id="shuffleBtn" type="button" title="Shuffle Deck">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="20" x2="21" y2="3"></line>
+              <polyline points="21 16 21 21 16 21"></polyline>
+              <line x1="15" y1="15" x2="21" y2="21"></line>
+              <line x1="4" y1="4" x2="9" y2="9"></line>
+            </svg>
+          </button>
+
+          <button class="icon-btn active" id="autoRevealBtn" type="button" title="Toggle Recall Mode (Hide/Show Solutions by default)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span class="btn-txt-desktop">Recall</span>
+          </button>
+
+          <button class="icon-btn" id="themeToggleBtn" type="button" title="Toggle Day / Night Theme (T)">
+            <svg id="themeIconSun" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg id="themeIconMoon" class="hidden" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- MAIN STAGE -->
+      <main class="main-stage">
+        <!-- VIEW 1: FOCUS / REEL DECK -->
+        <section id="view-reels" class="view active">
+          <div id="reelFeed" class="reel-feed"></div>
+        </section>
+
+        <!-- VIEW 2: SHEET & TOPIC EXPLORER -->
+        <section id="view-explorer" class="view">
+          <div class="explorer-toolbar">
+            <div class="search-wrap">
+              <svg class="search-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="search" id="searchInput" class="search-input" placeholder="Search 1,136 problems by title, pattern, or company (e.g. Amazon, Google, DP)..." autocomplete="off" />
+              <button id="clearSearchBtn" class="clear-search hidden" type="button" aria-label="Clear search">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+            <button id="swipeCurrentBtn" class="swipe-current-btn" type="button">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <span>Focus</span>
+            </button>
+          </div>
+
+          <div class="explorer-status-bar" id="explorerStatusPills">
+            <button class="f-pill active" data-sfilter="all" type="button">All</button>
+            <button class="f-pill pill-revisit" data-sfilter="revisit" type="button">Revisit</button>
+            <button class="f-pill pill-done" data-sfilter="done" type="button">Done</button>
+            <button class="f-pill pill-star" data-sfilter="starred" type="button">Star</button>
+          </div>
+
+          <div id="companyFilterBanner" class="company-banner hidden">
+            <span>Company: <strong id="activeCompanyName"></strong></span>
+            <button id="clearCompanyBtn" class="mini-btn" type="button">Clear</button>
+          </div>
+
+          <div id="explorerSheetPills" class="hidden"></div>
+          <div id="explorerTopicPills" class="topic-pills-bar"></div>
+          <div id="explorerList" class="explorer-list"></div>
+        </section>
+
+        <!-- VIEW 3: 36 C++17 STL BLUEPRINTS -->
+        <section id="view-patterns" class="view">
+          <div class="patterns-toolbar">
+            <div class="search-wrap">
+              <svg class="search-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="search" id="patternSearchInput" class="search-input" placeholder="Search 36 C++17 STL blueprints (Dijkstra, DSU, Monotonic Stack, Knapsack...)" autocomplete="off" />
+            </div>
+            <div class="pill-scroll" id="patternCategoryPills"></div>
+          </div>
+          <div id="patternsList" class="patterns-list"></div>
+        </section>
+
+        <!-- VIEW 4: COMPANIES, SHEETS & CLOUD SYNC -->
+        <section id="view-stats" class="view">
+          <div class="stats-container">
+            <div class="stat-box">
+              <div class="stat-box-hdr">
+                <h3>Filter by Company Tag</h3>
+                <span class="muted-xs">Tap any company to practice its problems</span>
+              </div>
+              <div id="companyGrid" class="company-grid"></div>
+            </div>
+
+            <div class="stat-box">
+              <div class="stat-box-hdr">
+                <h3>All Sheets</h3>
+                <span class="muted-xs">Tap to switch sheet</span>
+              </div>
+              <div id="sheetProgressList" class="sheet-progress-list"></div>
+            </div>
+
+            <div class="stat-box">
+              <div class="stat-box-hdr">
+                <h3>Cross-Device Sync &amp; Backup</h3>
+                <span id="syncStatusBadge" class="muted-xs">Local Storage</span>
+              </div>
+              <p class="sync-desc">Sync saved bookmarks and custom C++ solutions between your laptop and phone via GitHub Gist or JSON.</p>
+              <div class="sync-form">
+                <div class="sync-inputs-row">
+                  <input type="password" id="gistTokenInput" class="compact-input" placeholder="GitHub Token (gist scope)" />
+                  <input type="text" id="gistIdInput" class="compact-input" placeholder="Gist ID (optional)" />
+                </div>
+                <div class="sync-btn-row">
+                  <button id="gistPushBtn" class="btn-primary" type="button">Push to Gist</button>
+                  <button id="gistPullBtn" class="btn-secondary" type="button">Pull from Gist</button>
+                  <button id="copyMagicLinkBtn" class="btn-secondary" type="button">Copy Phone Link</button>
+                  <button id="exportJsonBtn" class="btn-secondary" type="button">Export JSON</button>
+                  <button id="importJsonBtn" class="btn-secondary" type="button">Import JSON</button>
+                  <button id="resetProgressBtn" class="btn-danger" type="button">Reset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- MOBILE BOTTOM NAVIGATION (< 860px) -->
+      <nav class="bottom-nav">
+        <button class="nav-tab active" data-view="reels" type="button">
+          <svg class="nav-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+          </svg>
+          <span class="nav-lbl">Focus</span>
+        </button>
+        <button class="nav-tab" data-view="explorer" type="button">
+          <svg class="nav-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          <span class="nav-lbl">Sheets</span>
+        </button>
+        <button class="nav-tab" data-view="patterns" type="button">
+          <svg class="nav-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          <span class="nav-lbl">Patterns</span>
+        </button>
+        <button class="nav-tab" data-view="stats" type="button">
+          <svg class="nav-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span class="nav-lbl">Companies</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- MODAL FOR EDITING CUSTOM C++ CODE / PERSONAL NOTES -->
+    <div id="editModal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div class="modal-hdr">
+          <h4 id="editModalTitle">Customize Solution &amp; Notes</h4>
+          <button id="closeEditModalBtn" class="icon-btn" type="button" aria-label="Close">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label class="field-lbl">Key Trigger / Pattern Summary</label>
+          <textarea id="editTriggerInput" class="compact-textarea" rows="2" placeholder="e.g. Sort + Two Pointers, skip duplicate values..."></textarea>
+          <label class="field-lbl">Intuition Steps (1 per line)</label>
+          <textarea id="editNotesInput" class="compact-textarea" rows="5" placeholder="Step-by-step intuition or edge cases..."></textarea>
+          <label class="field-lbl">C++17 STL Code</label>
+          <textarea id="editCodeInput" class="compact-textarea code-textarea" rows="16" placeholder="Paste or edit your C++ STL implementation..."></textarea>
+        </div>
+        <div class="modal-ftr">
+          <button id="resetCustomCardBtn" class="btn-secondary" type="button">Restore Default</button>
+          <button id="saveCustomCardBtn" class="btn-primary" type="button">Save Solution</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script src="data/questions_data.js?v=9"></script>
+  <script src="data/patterns_cpp.js?v=9"></script>
+  <script src="data/cards_cpp.js?v=9"></script>
+  <script src="app.js?v=9"></script>
+</body>
+</html>
