@@ -1,16 +1,16 @@
 {
-  "name": "DSA Reels — C++ STL Placement Revision",
-  "short_name": "DSA Reels",
-  "description": "High-density mobile DSA revision deck & multi-sheet tracker in C++ STL",
+  "name": "DSA C++ — Placement Revision Workspace",
+  "short_name": "DSA C++",
+  "description": "High-density mobile DSA revision deck & multi-sheet tracker in C++17 STL",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#07090e",
-  "theme_color": "#07090e",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230e121b'/><text y='68' x='16' font-size='58'>🔥</text></svg>",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2309090b'/><polyline points='62 70 82 50 62 30' fill='none' stroke='%23818cf8' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/><polyline points='38 30 18 50 38 70' fill='none' stroke='%23818cf8' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/></svg>",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any maskable"
